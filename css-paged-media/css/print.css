@@ -1,0 +1,145 @@
+@media print {
+  :root {
+    font-size: 12pt;
+    line-height: 2;
+  }
+
+  /* Do not print navigation elements */
+  nav,
+  footer,
+  .back-to-top,
+  .colophon__close {
+    display: none;
+  }
+
+  header {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  h1 {
+    white-space: pre;
+    text-align: center;
+  }
+
+  h1::after {
+    display: block;
+    content: "Written by Jeremy Meyers\00000a 04/06/2025";
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  h1 a {
+    color: black;
+    text-decoration: none;
+  }
+
+  main {
+    width: initial;
+  }
+
+  section + section {
+    break-after: page;
+  }
+
+  #what-is {
+    page: whatIs;
+  }
+
+  #basics {
+    page: basics;
+  }
+
+  #margins {
+    page: margins;
+  }
+
+  #page-breaking {
+    page: breaking;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  .image-container {
+    font-size: 10pt;
+  }
+
+  .image-container a {
+    color: black;
+    text-decoration: none;
+  }
+
+  .list-responsive {
+    columns: 3;
+  }
+
+  .code {
+    padding: 0 0.5em;
+    border: 0.125em solid #808080;
+    border-radius: 0.5em;
+    line-height: 1.75;
+  }
+
+  .colophon {
+    page: colophon;
+    display: block;
+    position: static;
+    border: none;
+    break-before: auto;
+  }
+
+  .colophon ul > li + li {
+    margin-top: 0.5em;
+  }
+}
+
+@page :first {
+  @top-center {
+    content: "CSS Paged Media";
+  }
+  counter-reset: pageNumber 0;
+}
+
+@page {
+  margin: 1in;
+  @top-right-corner {
+    counter-increment: pageNumber;
+    content: counter(pageNumber);
+  }
+}
+
+@page whatIs {
+  @top-center {
+    content: "CSS Paged Media - What is paged media?";
+  }
+}
+
+@page basics {
+  @top-center {
+    content: "CSS Paged Media - The Basics";
+  }
+}
+
+@page margins {
+  @top-center {
+    content: "CSS Paged Media - Margins and at-rules";
+  }
+}
+
+@page breaking {
+  @top-center {
+    content: "CSS Paged Media - Page breaking and sizing";
+  }
+}
+
+@page colophon {
+  @top-center {
+    content: "CSS Paged Media - Colophon";
+  }
+}
