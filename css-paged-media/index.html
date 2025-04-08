@@ -1,1 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="author" content="JM">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CSS Paged Media</title>
 
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Patrick+Hand&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="css/styles.css">
+         <link rel="stylesheet" href="css/print.css">
+
+        <script src="https://unpkg.com/pagedjs/dist/paged.polyfill.js" defer></script>
+    </head>
+    <body>
+        <header>
+            <h1><a href="#top">CSS Paged Media</a></h1>
+            <nav class="dropdown">
+                <button class="dropdown__hamburger">Open Menu</button>
+                <menu class="dropdown__menu">
+                    <li><a href="#what-is">What is it?</a></li>
+                    <li><a href="#basics">The Basics</a></li>
+                    <li><a href="#margins">Margins</a></li>
+                    <li><a href="#page-breaking">Page breaking</a></li>
+                </menu>
+            </nav>
+        </header>
+        <main id="top">
+            <section class="content" id="what-is">
+                <h2>What is paged media?</h2>
+                <figure class="image-container">
+                    <img src="./assets/collage-of-books.jpg" alt="A collage of books laying on top of one another." class="image-container__image">
+                    <figcaption class="image-container__credit">
+                        <span class="image-container__pencil">
+                            Photo by 
+                            <a href="https://unsplash.com/@impatrickt?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
+                                Patrick Tomasso
+                            </a> 
+                            on 
+                            <a href="https://unsplash.com/photos/open-book-lot-Oaqk7qqNh_c?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
+                                Unsplash
+                            </a>
+                        </span>
+                    </figcaption>
+                </figure>
+                <p>
+                    In this day and age, it is common to display information through scrolling webpages.
+                    At other times, however, it may be more helpful to use an older method that has been used for centuries: paper.
+                    CSS's module for paged media has the methods to convert websites into printable pages.
+                    One might think that pages and paper are not especially relevant in the digital age,
+                    but that is simply not the truth. Even if you are not using hard copy formats like paper,
+                    the PDF, Portable Document Format, is still extensively used across many industries.
+                    Being able to digitize documents and share them across the world no matter what operating system
+                    you use is incredibly powerful.
+                    Being able to print tabular data from a website can be very handy to view it easier as well,
+                    especially in the case of mobile viewing.
+                </p>
+                <p>
+                    The CSS Paged Media Module Level 3 is very new, having become a part of the CSS Baseline in December 2024.
+                    This means that the top players in the browser world--Chromium, Firefox, and Safari--support
+                    these features on their newest updates.
+                    A little asterisk to add is that not all features in this module are supported in all browsers,
+                    or, in the case of some features, any browsers.
+                    Indeed, the module still only in the Working Draft phase.
+                    Because of this, some features still are considered experimental, meaning their functionality could be changed later.
+                    So, while it can be tempting to immediately go add all these new features to your website,
+                    keep in mind that all of this is very new. Of course, if you only need to support the latest and greatest browsers,
+                    by all means, go all out! But if you do need to support some older browsers,
+                    or want to use some of the experimental features more consistently,
+                    you may want to look into using polyfills like paged.js.
+                </p>
+            </section>
+            <section class="content" id="basics">
+                <h2>The Basics</h2>
+                <figure class="image-container">
+                    <img src="./assets/apple-on-book-with-abcs.jpg" alt="An apple on top of a stack of books and a stack of blocks with the ABCs." class="image-container__image">
+                    <figcaption class="image-container__credit">
+                        <span class="image-container__pencil">
+                            Photo by 
+                            <a href="https://unsplash.com/@element5digital?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
+                                Element5 Digital
+                            </a> 
+                            on 
+                            <a href="https://unsplash.com/photos/red-apple-fruit-on-four-pyle-books-OyCl7Y4y0Bk?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
+                                Unsplash
+                            </a>
+                        </span>
+                    </figcaption>
+                </figure>
+                <p>
+                    So how do we use this module?
+                    Let us start with the at-rule <code class="code code--at-rule">@page</code>.
+                    When used on its own, <code class="code code--at-rule">@page</code> selects all pages that will be created as a printable document.
+                    This by itself can be useful, but what if we need more control, such as by selecting specific pages?
+                    Luckily there are several ways we can be more granular: naming pages with the <code class="code">page</code> property, using pseudo-classes,
+                    or a mixture of both.
+                </p>
+                <p>
+                    The <code class="code">page</code> property can be set on elements to indicate the page they should appear on.
+                    This is useful to control widths of specific pages, or even the styling of specific pages.
+                    There are four pseudo-classes that can be used with <code class="code code--at-rule">@page</code>:
+                    <code class="code code--psuedo-class">:left</code>, <code class="code code--psuedo-class">:right</code>, <code class="code code--psuedo-class">:first</code>, and <code class="code code--psuedo-class">:blank</code>.
+                    <code class="code code--psuedo-class">:first</code> does as you might expect, it targets the first page.
+                    <code class="code code--psuedo-class">:blank</code> is also fairly straightforward, it targets pages that are blank, perhaps because of a page break.
+                    The first two, <code class="code code--psuedo-class">:left</code> and <code class="code code--psuedo-class">:right</code> also do as you might expect; they target the left and right pages.
+                    But how do we know which pages are right and which ones are left?
+                    Well, we have to first look at what writing script we are using.
+                </p>
+                <h3>What direction are we heading?</h3>
+                <figure class="image-container">
+                    <img src="./assets/left-arrow-made-of-right-arrows.jpg" alt="A red left arrow made up of right arrows." class="image-container__image">
+                    <figcaption class="image-container__credit">
+                        <span class="image-container__pencil">
+                            Photo by 
+                            <a href="https://unsplash.com/@cdd20?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
+                                愚木混株 cdd20
+                            </a> 
+                            on 
+                            <a href="https://unsplash.com/photos/a-group-of-red-arrows-on-a-black-surface-HQH-GOZ6K2c?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
+                                Unsplash
+                            </a>
+                        </span>
+                    </figcaption>
+                </figure>
+                <p>
+                    English, as we know, writes from left to right, top to bottom.
+                    That is not the case for every single language, however.
+                    Semitic languages such as Hebrew and Arabic, for example, write from right to left.
+                    Japanese is an interesting case, since it may be written from left to right as it often is on the web,
+                    but in more traditional settings may be written vertically from right to left.
+                    The important thing to remember is that <strong>the page progression most often flows in the direction of the text.</strong>
+                    This means that left-to-right languages like English start on the left and progress to the right.
+                    Likewise, right-to-left languages do the same but in "reverse," starting on the right and going to the left.
+                </p>
+            </section>
+            <section class="content" id="margins">
+                <h2>Margins and at-rules</h2>
+                <figure class="image-container">
+                    <img src="./assets/portrait-margin-at-rules.jpg" alt="A representation of where margins are on a page." class="image-container__image">
+                    <figcaption class="image-container__credit">
+                        <a href="https://jeremymeyers.dev" class="image-container__pencil">Image by Jeremy Meyers</a>
+                    </figcaption>
+                </figure>
+                <p>
+                    Margins are always interesting, after all, who does not love scribbling notes or doodles in the margins?
+                    Margins are so cool, in fact, that there are sixteen at-rules just to target parts of the margin around a page.
+                </p>
+                <ol class="at-rule-list list-responsive">
+                    <li><code class="code code--at-rule">@top-left-corner</code></li>
+                    <li><code class="code code--at-rule">@top-left</code></li>
+                    <li><code class="code code--at-rule">@top-center</code></li>
+                    <li><code class="code code--at-rule">@top-right</code></li>
+                    <li><code class="code code--at-rule">@top-right-corner</code></li>
+                    <li><code class="code code--at-rule">@right-top</code></li>
+                    <li><code class="code code--at-rule">@right-middle</code></li>
+                    <li><code class="code code--at-rule">@right-bottom</code></li>
+                    <li><code class="code code--at-rule">@bottom-right-corner</code></li>
+                    <li><code class="code code--at-rule">@bottom-right</code></li>
+                    <li><code class="code code--at-rule">@bottom-center</code></li>
+                    <li><code class="code code--at-rule">@bottom-left</code></li>
+                    <li><code class="code code--at-rule">@bottom-left-corner</code></li>
+                    <li><code class="code code--at-rule">@left-bottom</code></li>
+                    <li><code class="code code--at-rule">@left-middle</code></li>
+                    <li><code class="code code--at-rule">@left-top</code></li>
+                </ol>
+                <p>
+                    By default, browsers use the margins to display information about the website such as its URL and title,
+                    as well as information about the document such as page number and time the document was assembled.
+                    The placement of these items vary from browser to browser.
+                    The aforementioned at-rules can be used to override these defaults.
+                    It may be useful to change these default styles to fit with the overall theme of your document.
+                    One quirk about these margin boxes is that they do not support the use of the <code class="code">position</code> property,
+                    but still have access to the <code class="code">z-index</code> property as if they were positioned. These at-rules can be very powerful.
+                    Unfortunately they are only supported in (most) Chromium-based browsers as of March 2025.
+                    So, as mentioned before, you may have to use a polyfill to use these styles effectively.
+                </p>
+                <p>
+                    There are two other properties related to margins, though most browsers have not implemented them yet.
+                    These properties are <code class="code">marks</code> and <code class="code">bleed</code>.
+                    <code class="code">marks</code> refers to crop marks on the border of the page to know where to cut the page.
+                    Crop marks are used in industrial printing when an image will extend to the edge of the paper.
+                    The printer is not precise enough to just stop, so we use crop marks to give the printer more room.
+                    Bleeds are a similar concept.
+                    Since the printer cannot just stop, the bleed area is the area outside the trim area that allows that room.
+                </p>
+                <h3>Counters</h3>
+                <figure class="image-container">
+                    <img src="./assets/tally-counter.jpg" alt="A hand holding a tally counter." class="image-container__image">
+                    <figcaption class="image-container__credit">
+                        <span class="image-container__pencil">
+                            Image by 
+                            <a href="https://pixabay.com/users/renateko-15186262/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=6069404">
+                                Renate 
+                            </a> 
+                            from 
+                            <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=6069404">
+                                Pixabay
+                            </a>
+                        </span>
+                    </figcaption>
+                </figure>
+                <p>
+                    Counters, while not technically part of the Paged Media module,
+                    can be very useful when used in conjunction with it.
+                    Rather than having to use JavaScript to keep a running page number or chapter number, you can use pure CSS.
+                    Counters work by defining the <code class="code">counter-reset</code> property on an element,
+                    then using <code class="code">counter-increment</code> or <code class="code">counter-set</code> to change its value on subsequent elements.
+                    Finally, you can use the <code class="code code--function">counter()</code> function to access the value of the counter.
+                    Commonly, the value of the counter is used for chapters, pages, or lists,
+                    but it can technically be used wherever a string could be in CSS.
+                </p>
+            </section>
+            <section class="content" id="page-breaking">
+                <h2>Page breaking and sizing</h2>
+                <figure class="image-container">
+                    <img src="./assets/martial-artist-breaking-board.jpg" alt="A martial artist breaking a board laying on two stacks of bricks." class="image-container__image">
+                    <figcaption class="image-container__credit">
+                        <a href="https://www.pexels.com/photo/person-breaking-a-board-with-karate-chop-8041993/" class="image-container__pencil">
+                            Photo by cottonbro studio
+                        </a>
+                    </figcaption>
+                </figure>
+                <p>
+                    Another useful thing to control is the size of the document and where to have page breaks.
+                    Page breaking, like counters, is also not part of the Paged Media module, but is meant to be used alongside it.
+                    It is part of the CSS Fragmentation module, which governs how content should be broken up to create pages in a document.
+                    There are three different properties to control page breaks: <code class="code">break-before</code>, <code class="code">break-inside</code>, and <code class="code">break-after</code>.
+                    Using these properties, you can designate when and where page breaks happen.
+                    The two properties <code class="code">break-before</code> and <code class="code">break-after</code> have values to force a page break to happen or to avoid page breaks.
+                    The <code class="code">break-inside</code> property, on the other hand, only has values to avoid breaks, since rarely,
+                    if ever, would you want to force a page to break inside an element.
+                    The default value of all three of these properties is <code class="code">auto</code>, meaning it will page break when it needs to.
+                </p>
+                <aside>
+                    <p>
+                        These three properties existed in CSS 2.1, with slightly different names.
+                        They were renamed when CSS3 and its modules came around.
+                        They used to have <code class="code">page-</code> prefixed to them, but nowadays, browsers will alias the old properties to the correct ones.
+                    </p>
+                </aside>
+                <p>
+                    When thinking about page breaks, there is also the concept of <code class="code">orphans</code> and <code class="code">widows</code>.
+                    Orphans in this context refer to the amount of lines that are left by themselves before a break.
+                    Widows refers to the opposite: the amount of lines left by themselves after a break.
+                    These can also help control the flow of the document.
+                    For instance, you might not want to specify page breaks on specific blocks,
+                    but you know you do not ever want one or two lines to be separated from the rest of the sentence.
+                </p>
+                <h3>Sizes</h3>
+                <figure class="image-container">
+                    <img src="./assets/tape-measure.jpg" alt="A measuring tape loosely wrapped." class="image-container__image">
+                    <figcaption class="image-container__credit">
+                        <span class="image-container__pencil">
+                            Photo by 
+                            <a href="https://unsplash.com/@siora18?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
+                                Siora Photography
+                            </a> 
+                            on 
+                            <a href="https://unsplash.com/photos/selective-focus-photography-of-tape-measure-cixohzDpNIo?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
+                                Unsplash
+                            </a>
+                        </span>
+                    </figcaption>
+                </figure>
+                <p>
+                    To choose the size of the document created, we can use the aptly named <code class="code">size</code> property.
+                    This property has many values it can take on.
+                    You can specify the orientation of the document with the <code class="code">portrait</code> and <code class="code">landscape</code> values in addition to a size value.
+                    You can really choose any size you want with length units like <code class="code">in</code>, <code class="code">cm</code>, <code class="code">mm</code>,
+                    or other units that are valid in CSS such as <code class="code">em</code>.
+                    Since the document may be printed at some point,
+                    it may be helpful to stick to using real-life units such as inches or centimeters.
+                    Luckily, to make things simple, there are prebuilt sizes we can choose from based on real-life paper sizes:
+                </p>
+                <ul class="list-responsive">
+                    <li>A5 - 148mm x 210mm</li>
+                    <li>A4 - 210mm x 297mm</li>
+                    <li>A3 - 297mm x 420mm</li>
+                    <li>B5 - 176mm x 250mm</li>
+                    <li>B4 - 250mm x 353mm</li>
+                    <li>JIS-B5 - 182mm x 257mm</li>
+                    <li>JIS-B4 - 257mm x 364mm</li>
+                    <li>letter - 8.5in x 11in</li>
+                    <li>legal - 8.5in x 14in</li>
+                    <li>ledger - 11in x 17in</li>
+                </ul>
+            </section>
+        </main>
+        <footer>
+            <a href="#top" class="back-to-top">Back to top</a>
+            <h2>CSS Paged Media</h2>
+            <span class="authorship">
+                <a href="https://jeremymeyers.dev">Jeremy Meyers</a>
+                <span>/</span>
+                <time datetime="2025-04-06">04/06/2025</time>
+            </span>
+            <button type="button" class="open-colophon">Colophon</button>
+        </footer>
+        <dialog class="colophon">
+            <button class="colophon__close" autofocus>Close</button>
+            <h2>Colophon</h2>
+            <p>
+                This project would not be the same without all these wonderful people sharing their knowledge and expertise. 
+                Go give them some love for providing so many assets and information with incredibly generous licensing agreements!
+            </p>
+            <cite>-JM</cite>
+            <h3>Technologies</h3>
+            <p>
+                I used 
+                <a href="https://code.visualstudio.com/">Visual Studio Code</a> 
+                to code all the wonderful things you see here. 
+                I used pure HTML, CSS, and JavaScript to build the majority of the website, with one exception.
+                I had to use 
+                <a href="https://pagedjs.org/">PagedJS</a> 
+                as a polyfill for the printing styles for older browsers.
+            </p>
+            <h3>Sources</h3>
+            <ul>
+                <li>
+                    <a href="https://www.w3.org/TR/css-page-3/">W3C Documentation - CSS Paged Media Module Level 3</a>
+                </li>
+                <li>
+                    <a href="https://www.w3.org/TR/css-break-3/">W3C Documentation - CSS Fragmentation Module Level 3</a>
+                </li>
+                <li>
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/counter">MDN Docs - CSS counter() function</a>
+                </li>
+                <li>
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@page">MDN Docs - CSS @page at-rule</a>
+                </li>
+                <li>
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_paged_media">MDN Docs - CSS paged media reference</a>
+                </li>
+                <li>
+                    <a href="https://pagedjs.org/documentation/5-web-design-for-print/">PagedJS Documentation - Web design for print</a>
+                </li>
+            </ul>
+            <h3>Images</h3>
+            <ul>
+                <li>
+                    <cite>
+                        <a href="https://fonts.google.com/icons?icon.size=32&icon.color=%23e3e3e3&icon.platform=web&icon.query=close&icon.set=Material+Icons&selected=Material+Icons+Outlined:close:">
+                            Material Icons - Close</a></cite>, created by Google, licensed under 
+                    <a href="https://www.apache.org/licenses/LICENSE-2.0.html">
+                        Apache License Version 2.0
+                    </a>; resized by Jeremy Meyers
+                </li>
+                <li>
+                    <cite>
+                        <a href="https://fonts.google.com/icons?selected=Material+Icons+Outlined:menu:&icon.size=32&icon.color=%23e3e3e3&icon.platform=web&icon.query=menu&icon.set=Material+Icons">
+                            Material Icons - Menu</a></cite>, created by Google, licensed under 
+                    <a href="https://www.apache.org/licenses/LICENSE-2.0.html">
+                        Apache License Version 2.0</a>; resized by Jeremy Meyers
+                </li>
+                <li>
+                    <cite>
+                        <a href="https://fonts.google.com/icons?selected=Material+Icons+Outlined:arrow_upward:&icon.size=32&icon.color=%23e3e3e3&icon.platform=web&icon.query=up&icon.set=Material+Icons">
+                            Material Icons - Arrow Upward</a></cite>, created by Google, licensed under 
+                    <a href="https://www.apache.org/licenses/LICENSE-2.0.html">
+                        Apache License Version 2.0</a>
+                </li>
+                <li>
+                    <cite>open book lot</cite> by 
+                    <a href="https://unsplash.com/@impatrickt?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
+                        Patrick Tomasso</a> 
+                    on 
+                    <a href="https://unsplash.com/photos/open-book-lot-Oaqk7qqNh_c?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
+                        Unsplash</a>, 
+                    licensed under the  
+                    <a href="https://unsplash.com/license">
+                        Unsplash License</a>
+                </li>
+                <li>
+                    <cite>red apple fruit on four pyle books</cite> by 
+                    <a href="https://unsplash.com/@element5digital?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
+                        Element5 Digital</a> 
+                    on 
+                    <a href="https://unsplash.com/photos/red-apple-fruit-on-four-pyle-books-OyCl7Y4y0Bk?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
+                        Unsplash</a>, 
+                    licensed under the  
+                    <a href="https://unsplash.com/license">
+                        Unsplash License</a>
+                </li>
+                <li>
+                    <cite>a group of red arrows on a black surface</cite> by 
+                    <a href="https://unsplash.com/@cdd20?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
+                        愚木混株 cdd20</a> 
+                    on 
+                    <a href="https://unsplash.com/photos/a-group-of-red-arrows-on-a-black-surface-HQH-GOZ6K2c?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
+                        Unsplash</a>, 
+                    licensed under the  
+                    <a href="https://unsplash.com/license">
+                        Unsplash License</a>
+                </li>
+                <li>
+                    <cite>Hand holding tally counter</cite> by 
+                    <a href="https://pixabay.com/users/renateko-15186262/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=6069404">
+                        Renate</a> 
+                    from 
+                    <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=6069404">
+                        Pixabay</a>,
+                    licensed under the 
+                    <a href="https://pixabay.com/service/license-summary/">
+                        Pixabay Content License</a>
+                </li>
+                <li>
+                    <cite>Person Breaking A Board With Karate Chop</cite> by 
+                    <a href="https://www.pexels.com/photo/person-breaking-a-board-with-karate-chop-8041993/">
+                        cottonbro studio</a>,
+                    licensed under the 
+                    <a href="https://www.pexels.com/license/">
+                        Pexels License</a>
+                </li>
+                <li>
+                    <cite>selective focus photography of tape measure</cite> by 
+                    <a href="https://unsplash.com/@siora18?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
+                        Siora Photography</a> 
+                    on 
+                    <a href="https://unsplash.com/photos/selective-focus-photography-of-tape-measure-cixohzDpNIo?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
+                        Unsplash</a>,
+                    licensed under the 
+                    <a href="https://unsplash.com/license">
+                        Unsplash License</a>
+                </li>
+                <li>
+                    <cite>Corrugated Cardboard Boxes</cite> by 
+                    <a href="https://pixabay.com/users/matlevesque-4645951/">matlevesque</a>,
+                    licensed under the 
+                    <a href="https://pixabay.com/service/license-summary/">
+                        Pixabay Content License</a>
+                </li>
+                <li>
+                    <cite>brown textile in close up photography</cite> by 
+                    <a href="https://unsplash.com/@kiwihug?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
+                        Kiwihug</a> 
+                    on 
+                    <a href="https://unsplash.com/photos/brown-textile-in-close-up-photography-bPaRBSuvRPA?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
+                        Unsplash</a>,
+                    licensed under the 
+                    <a href="https://unsplash.com/license">
+                        Unsplash License</a>
+                </li>
+                <li>
+                    <cite>Sticky Note</cite> by 
+                    <a href="https://pixabay.com/users/openclipart-vectors-30363/">OpenClipart-Vectors</a>,
+                    licensed under the 
+                    <a href="https://pixabay.com/service/license-summary/">
+                        Pixabay Content License</a>; modified by Jeremy Meyers
+                </li>
+                <li>
+                    <cite>Pushpin</cite> by 
+                    <a href="https://pixabay.com/users/openclipart-vectors-30363/">OpenClipart-Vectors</a>,
+                    licensed under the 
+                    <a href="https://pixabay.com/service/license-summary/">
+                        Pixabay Content License</a>
+                </li>
+                <li>
+                    <cite>Paper textures</cite> by 
+                    <a href="https://resourceboy.com/textures/white-paper-textures/">ResourceBoy</a>,
+                    licensed for personal and commercial use
+                </li>
+                <li>
+                    <cite>Scribble textures</cite> by 
+                    <a href="https://resourceboy.com/textures/scribble-textures/">ResourceBoy</a>,
+                    licensed for personal and commercial use; assembled into background image by Jeremy Meyers
+                </li>
+            </ul>
+            <h3>Fonts</h3>
+            <ul>
+                <li>
+                    <a href="https://fonts.google.com/specimen/Patrick+Hand">Patrick Hand</a>,
+                    Copyright &copy; 2010-2012 <a href="http://patrickwagesreiter.at/">Patrick Wagesreiter</a>, 
+                    licensed under the 
+                    <a href="https://openfontlicense.org/open-font-license-official-text/">
+                        SIL Open Font License Version 1.1</a>
+                </li>
+                <li>
+                    <a href="https://fonts.google.com/specimen/Merriweather+Sans">Merriweather Sans</a>,
+                    Copyright &copy; 2019 
+                    <a href="https://github.com/SorkinType/Merriweather-Sans">The Merriweather Project Authors</a> 
+                    with Reserved Font Name 'Merriweather'. Merriweather is a trademark of Sorkin Type Co. 
+                    Licensed under the 
+                    <a href="https://openfontlicense.org/open-font-license-official-text/">
+                        SIL Open Font License Version 1.1</a>
+                </li>
+                <li>
+                    <a href="https://fonts.google.com/specimen/Merriweather">Merriweather</a>,
+                    Copyright &copy; 2020 
+                    <a href="https://github.com/EbenSorkin/Merriweather4">The Merriweather Project Authors</a> 
+                    with Reserved Font Name "Merriweather". 
+                    Licensed under the 
+                    <a href="https://openfontlicense.org/open-font-license-official-text/">
+                        SIL Open Font License Version 1.1</a>
+                </li>
+            </ul>
+            <h3>Code Snippets</h3>
+            <ul>
+                <li>
+                    Dropdown CSS module from 
+                    <cite>
+                        <a href="https://www.manning.com/books/css-in-depth-second-edition">
+                            CSS in Depth, First Edition</a>
+                    </cite> 
+                    by <a href="https://keithjgrant.com/">Keith J. Grant</a>
+                </li>
+                <li>
+                    Dropdown animation derived from 
+                    <cite>
+                        <a href="https://codinhood.com/micro/10-dropdown-menu-animations-css-transform/">
+                            10 Dropdown Menu Animations with CSS Transforms</a>
+                    </cite> 
+                    by <a href="https://codinhood.com/">Codinhood</a>
+                </li>
+                <li>
+                    Scrolling header margin fix from 
+                    <cite>
+                        <a href="https://phuoc.ng/collection/tips/prevent-scrolling-behind-a-fixed-header/">
+                            Prevent scrolling behind a fixed header</a>
+                    </cite>
+                    by <a href="https://phuoc.ng/">Phước Nguyễn</a>
+                </li>
+                <li>
+                    CSS filter for the above close button created with 
+                    <cite>
+                        <a href="https://change-svg-color.vercel.app/">
+                            Change SVG Color Using CSS Filter</a>
+                    </cite>
+                </li>
+            </ul>
+        </dialog>
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
