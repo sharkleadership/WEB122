@@ -1,0 +1,1098 @@
+/* JM, 05/11/2025, KC Doberman Rescue styles */
+:root {
+  font-size: clamp(16px, calc(1vw + 0.6em), 1.125em);
+
+  box-sizing: border-box;
+
+  --black: #181714;
+  --brown: #7f4524;
+  --gray: #3f3f3f;
+  --light-green: #88e7a9;
+  --forest-green: #236134;
+
+  /* Padding + Logo/Hamburger height; recalculated fully with JS */
+  --header-height: calc(2em + 3em);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  max-width: 100vw;
+}
+
+body {
+  font-family: "Ubuntu", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.7;
+}
+
+/* Very general tag styles */
+
+img {
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Mali", "Times New Roman", Times, serif;
+  font-weight: bold;
+  color: var(--brown);
+}
+
+h3 {
+  font-size: 1.25em;
+}
+
+a {
+  color: var(--brown);
+}
+
+a:hover {
+  color: var(--gray);
+  text-decoration: underline var(--brown);
+}
+
+/* Double container */
+
+.container {
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: [left] auto [content] 1fr auto [right];
+}
+
+.container > *,
+main > * {
+  grid-column: content;
+}
+
+main {
+  display: grid;
+  grid-template-columns: [left] 1fr [content] 92.5vw 1fr [right];
+}
+
+.full-bleed {
+  grid-column: left / right;
+  width: 100%;
+}
+
+main .full-bleed {
+  padding-left: 3.75vw;
+  padding-right: 3.75vw;
+}
+
+.body-header,
+.body-footer,
+section.colored {
+  background-color: var(--light-green);
+
+  background-image: url("../assets/sandstone-50.png");
+  background-blend-mode: luminosity;
+}
+
+section.colored {
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+main section,
+main > aside {
+  margin: 2em 0;
+}
+
+/* Lobotomized owl margin-top overrides */
+
+main section + section,
+main section + aside,
+main > aside + section {
+  margin-top: 0;
+}
+
+main section > section {
+  padding: 0;
+  margin: 0;
+}
+
+main section header * {
+  margin-top: 0;
+}
+
+main > *,
+#top {
+  scroll-margin-top: var(--header-height);
+}
+
+/* Header */
+
+.body-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1em;
+  padding: 1em 1.5em;
+
+  position: sticky;
+  z-index: 100;
+  top: 0;
+
+  /* CSS Validator does not like relative colors, but they work properly */
+  box-shadow: 0 0.25em 1em hsl(from var(--gray) h s l / 0.7);
+}
+
+.header__logo {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.header__logo a {
+  color: var(--black);
+  text-decoration: none;
+}
+
+.header__logo a:hover {
+  text-decoration: underline var(--brown);
+}
+
+.heading {
+  padding: 0;
+  font-size: 1.5em;
+  line-height: 1;
+}
+
+.heading * {
+  font-size: 1em;
+  margin: 0;
+}
+
+.heading p {
+  display: none;
+  font-size: 0.6em;
+  font-style: italic;
+}
+
+.logo {
+  --logo-size: 3em;
+  min-width: var(--logo-size);
+  height: var(--logo-size);
+  aspect-ratio: 1;
+}
+
+/* Dropdown module */
+
+.dropdown-menu {
+  position: relative;
+}
+
+.dropdown-menu__hamburger {
+  position: relative;
+  z-index: 10;
+
+  --hamburger-size: 3em;
+  width: var(--hamburger-size);
+  height: var(--hamburger-size);
+  aspect-ratio: 1;
+
+  padding: 0;
+  margin: 0;
+  border: none;
+  background-color: transparent;
+
+  text-indent: 10rem;
+  text-align: center;
+
+  cursor: pointer;
+
+  overflow: hidden;
+}
+
+.bar {
+  display: block;
+  position: relative;
+  left: 0.25em;
+
+  width: calc(var(--hamburger-size) - 0.5em);
+  height: 0.1875rem;
+  margin: calc(var(--hamburger-size) / 4) 0;
+  border-radius: 0.5rem;
+  background-color: var(--black);
+
+  transition: all 0.3s ease;
+}
+
+/* Middle bar */
+.dropdown-menu__hamburger.is-open .bar:nth-child(2) {
+  opacity: 0;
+}
+
+/* Top bar */
+.dropdown-menu__hamburger.is-open .bar:nth-child(1) {
+  transform: translateY(calc((var(--hamburger-size) / 4) - 0.25em))
+    rotate(45deg);
+}
+
+/* Bottom bar */
+.dropdown-menu__hamburger.is-open .bar:nth-child(3) {
+  transform: translateY(calc(-1 * (var(--hamburger-size) / 2.5) - 0.25em))
+    rotate(-45deg);
+}
+
+.dropdown-menu__menu {
+  list-style: none;
+  position: absolute;
+  right: 0;
+  z-index: 1000;
+
+  padding: 0;
+  margin: 0;
+
+  white-space: nowrap;
+
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.15s ease-out;
+}
+
+.dropdown-menu__menu.is-open {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Arrow connecting to the hamburger */
+.dropdown-menu__menu.is-open::before {
+  content: "";
+  width: 0;
+  height: 0;
+  display: block;
+  aspect-ratio: 1;
+  border: 0.8em solid;
+
+  /* CSS Validator does not like relative colors, but they work properly */
+  border-color: transparent transparent
+    hsl(from var(--light-green) h calc(s - 20) calc(l + 0)) transparent;
+
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(-0.25em, -1.6em);
+}
+
+.dropdown-menu__menu > li > a {
+  display: block;
+  padding: 0.75em 1.5em;
+  font-size: 1.25em;
+  background-color: var(--light-green);
+  color: var(--black);
+  text-decoration: none;
+
+  text-align: center;
+}
+
+.dropdown-menu__menu > li:first-of-type > a {
+  border-top-left-radius: 0.5em;
+  border-top-right-radius: 0.25em 0.5em;
+}
+
+.dropdown-menu__menu > li:last-of-type > a {
+  border-bottom-left-radius: 0.5em;
+  border-bottom-right-radius: 0.5em;
+}
+
+.dropdown-menu__menu > li > a:hover {
+  background-color: var(--forest-green);
+  color: #fff;
+}
+
+.dropdown-menu__menu > li > a:active {
+  background-color: var(--brown);
+  color: #fff;
+}
+
+/* Call to actions */
+
+.call-to-action {
+  display: inline-block;
+  background-color: var(--light-green);
+  text-decoration: none;
+  color: var(--black);
+  padding: 0.375em 0.75em;
+
+  border: 0.1875em solid var(--forest-green);
+  border-radius: 0.5em;
+}
+
+.call-to-action.facebook:hover,
+.call-to-action:hover {
+  background-color: var(--forest-green);
+  text-decoration: none;
+  color: #fff;
+  border-color: transparent;
+}
+
+.call-to-action.facebook:active,
+.call-to-action:active {
+  background-color: var(--brown);
+  color: #fff;
+  border-color: var(--gray);
+}
+
+.call-to-action::before {
+  content: " ";
+  display: inline-block;
+  width: 2em;
+  height: 2em;
+  aspect-ratio: 1;
+  vertical-align: middle;
+  background-image: url("../assets/doberman.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin-right: 0.5em;
+}
+
+.call-to-action:hover::before,
+.call-to-action:active::before {
+  background-image: url("../assets/doberman-barking.svg");
+}
+
+.call-to-action.facebook {
+  align-self: flex-start;
+  padding: 0.25em 0.75em;
+
+  /* CSS Validator does not like relative colors, but they work properly */
+  background-color: hsl(from var(--light-green) h s calc(l - 10));
+}
+
+.call-to-action.facebook::before {
+  background-image: url("../assets/Facebook-logo.png");
+}
+
+/* Back to top */
+
+.back-to-top {
+  position: fixed;
+  bottom: 3.5em;
+  right: 2em;
+  z-index: 100;
+
+  text-indent: 5rem;
+  font-size: 1rem;
+
+  display: block;
+  opacity: 0;
+  width: 2.5rem;
+  aspect-ratio: 1;
+  padding: 1rem;
+
+  /* CSS Validator does not like relative colors, but they work properly */
+  background-color: hsl(from var(--brown) h calc(s - 30) l);
+  box-shadow: 0 0 0 0.1rem hsl(from var(--brown) h calc(s - 30) calc(l + 20));
+
+  border-radius: 0.25rem;
+
+  background-position: 50% 50%;
+  background-size: 75%;
+  background-repeat: no-repeat;
+  background-image: url("../assets/arrow_upward.svg");
+  background-blend-mode: luminosity;
+
+  overflow: hidden;
+
+  animation: button_disappear 300ms ease-in-out forwards;
+}
+
+.back-to-top.has-appeared {
+  animation: button_appear 300ms ease-in-out forwards;
+  opacity: 1;
+}
+
+@keyframes button_appear {
+  0% {
+    opacity: 0;
+    bottom: -1em;
+  }
+  70% {
+    opacity: 1;
+  }
+  80% {
+    bottom: 3.25em;
+  }
+  100% {
+    bottom: 3em;
+  }
+}
+
+@keyframes button_disappear {
+  0% {
+    opacity: 1;
+    bottom: 3em;
+  }
+  10% {
+    bottom: 3.25em;
+  }
+  80% {
+    opacity: 0;
+  }
+  100% {
+    bottom: -5em;
+  }
+}
+
+/* Card module */
+
+.card {
+  padding: 1em;
+  margin: 0;
+  border: 0.3725em solid black;
+  box-shadow: 0.125em 0.125em 0.5em var(--gray);
+  border-radius: 0.75em;
+  background-color: #fff;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1em;
+
+  --media_aspect-ratio: 1 / 1;
+  --media_max-width: 200px;
+}
+
+.card img[src*="svg"] {
+  width: var(--media_max-width);
+}
+
+.card img {
+  max-width: calc(var(--media_max-width));
+  max-height: calc(var(--media_max-width) * var(--media_aspect-ratio));
+  border-radius: 0.75em;
+  aspect-ratio: var(--media_aspect-ratio);
+  object-fit: cover;
+}
+
+.card._16-9 {
+  --media_aspect-ratio: 16 / 9;
+  --media_max-width: 100%;
+}
+
+/* Footer */
+
+.body-footer {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  font-size: 0.85em;
+
+  gap: 2em 5em;
+  padding: 1.5em 1.5em 1em;
+}
+
+.body-footer .header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.body-footer .dropdown-menu__menu {
+  right: 0;
+  column-count: 2;
+  column-gap: 0;
+  border: 0.125em solid var(--gray);
+  background-color: var(--light-green);
+}
+
+.body-footer .dropdown-menu__menu::before {
+  display: none;
+}
+
+.body-footer .header,
+.body-footer .copyright {
+  flex-basis: 100%;
+}
+
+.body-footer .copyright {
+  text-align: center;
+}
+
+.body-footer h3 {
+  margin-top: 0;
+  text-align: center;
+}
+
+.address address * {
+  margin: 0;
+}
+
+address {
+  font-weight: bold;
+  font-style: normal;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.address-header {
+  color: var(--brown);
+  font-family: "Mali", "Times New Roman", Times, serif;
+  font-size: 1.25em;
+}
+
+/* Contact form */
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75em;
+  max-width: 65ch;
+}
+
+.contact-form input {
+  border-radius: 0.25rem;
+  border: 0.0575em solid var(--black);
+  padding: 0.5em 2em 0.5em 1em;
+}
+
+.contact-form textarea {
+  border-radius: 0.25rem;
+  border: 0.0575em solid var(--black);
+  padding: 0.5em 1em;
+  aspect-ratio: 4 / 2;
+}
+
+.contact-form [type="submit"] {
+  border: 0.125em solid var(--black);
+}
+
+/* Footer link list */
+
+.desktop-links {
+  display: none;
+}
+
+/* Icon before */
+
+.icon-before::before {
+  content: " ";
+  display: inline-block;
+  width: 2em;
+  height: 2em;
+  aspect-ratio: 1;
+  vertical-align: middle;
+  background-image: url("../assets/kcdr-logo.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin-right: 0.25em;
+}
+
+.icon-before.email::before {
+  background-image: url("../assets/email-icon.svg");
+}
+
+.icon-before.web::before {
+  background-image: url("../assets/web-icon.svg");
+}
+
+.icon-before.location::before {
+  background-image: url("../assets/location-icon.svg");
+}
+
+.icon-before.doberman::before {
+  background-image: url("../assets/doberman.svg");
+}
+
+.icon-before.doberman:hover::before {
+  background-image: url("../assets/doberman-barking.svg");
+}
+
+/* Download icon */
+
+[download]::after {
+  content: " ";
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  aspect-ratio: 1;
+  vertical-align: sub;
+  background-image: url("../assets/download-icon.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin-left: 0.25em;
+}
+
+/* Media module */
+
+.media {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2em;
+}
+
+.media > img {
+  max-width: 100%;
+}
+
+/* Two-column module */
+
+.two-column__sidebar {
+  margin: 2em 0;
+  padding: 2em 3em;
+  background-color: #eee;
+  border: 0.25em solid var(--gray);
+  border-radius: 2em;
+}
+
+/* List of links */
+
+.list-of-links {
+  column-count: 1;
+  line-height: 2.7;
+  list-style-type: none;
+  white-space: nowrap;
+  font-size: 1.1em;
+  margin: 0;
+}
+
+/* Background-image-header module */
+
+.bg-image-header {
+  font-size: clamp(1.5em, 2.25em, 5vw);
+  text-align: center;
+  padding: 2.5em 5vw;
+  background-image: url("../assets/in-memoriam/no-pic.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.bg-image-header * {
+  display: inline-block;
+  padding: 1em clamp(1em, 2em, 5vw);
+  margin: 0;
+  border-radius: 0.5rem;
+  -webkit-backdrop-filter: blur(1.5rem);
+  backdrop-filter: blur(1.5rem);
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 0.75rem rgba(255, 255, 255, 0.25);
+}
+
+/* Quote module */
+
+.quote {
+  text-align: center;
+  margin: 0;
+}
+
+.quote cite {
+  display: block;
+}
+
+/* Gray background with border */
+
+.gray-bg-border {
+  border: 0.25em solid var(--gray);
+  background-color: #eee;
+  border-radius: 1.25em;
+  padding: 2em;
+}
+
+.gray-bg-border h2 {
+  margin: 0;
+}
+
+/* Responsive grid */
+
+.responsive-grid {
+  padding: 0;
+  margin: 0;
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: [left] repeat(1, 1fr) [right];
+  grid-auto-rows: 1fr;
+  gap: 2em;
+}
+
+.responsive-grid li > * {
+  min-height: 100%;
+}
+
+/* Show more */
+
+.show-more {
+  display: block;
+
+  border: none;
+
+  /* CSS Validator does not like relative colors, but they work properly */
+  border-top: 0.125em solid hsl(from var(--gray) h s calc(l + 10));
+
+  background-color: #eee;
+  color: transparent;
+
+  font-size: 1.5em;
+  transform: translateY(1em);
+  width: 100%;
+
+  cursor: pointer;
+}
+
+.show-more::before {
+  content: "";
+
+  /* CSS Validator does not like relative colors, but they work properly */
+  border: solid hsl(from var(--gray) h s calc(l + 10));
+
+  border-width: 0 0.125em 0.125em 0;
+  display: inline-block;
+  padding: 0.125em;
+  transform: rotate(45deg);
+}
+
+/* Barber pole sections */
+
+.barber-pole-sections section:nth-of-type(2n) {
+  background-color: #eee;
+  padding-top: 2em;
+  padding-bottom: 2em;
+}
+
+/* Rubric */
+
+.rubric {
+  list-style-type: none;
+  font-size: 1.2em;
+  padding-left: 0;
+}
+
+.rubric ul {
+  font-size: 1rem;
+}
+
+.rubric .overall {
+  margin: 1em 0;
+}
+
+/* Short modules */
+
+.column-break {
+  break-after: column;
+}
+
+.flex,
+.flex-wrap {
+  display: flex;
+}
+
+.flex-wrap {
+  flex-direction: column;
+  align-items: center;
+}
+
+.flex.center,
+.flex-wrap.center {
+  justify-content: center;
+}
+
+.flex-33 {
+  flex-basis: 33%;
+}
+
+.flex-full-row {
+  flex-basis: 100%;
+}
+
+.list-style-none {
+  list-style-type: none;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.center:not(.flex):not(.flex-wrap) {
+  margin: 0 auto;
+}
+
+.round-corners {
+  border-radius: 0.75em;
+}
+
+.block {
+  display: block;
+}
+
+/* Home page */
+
+.furever-pets .flex-wrap {
+  gap: 3em;
+}
+
+.foster-today {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5em;
+}
+
+/* In Memoriam page */
+
+.in-memoriam-page .bg-image-header {
+  background-image: url("../assets/in-memoriam/clouds-in-memoriam.jpg");
+}
+
+/* Process page */
+
+.wireframes {
+  gap: 2em;
+}
+
+.wireframes figure {
+  margin: 0;
+}
+
+@media (min-width: 48em) {
+  /* Basic styles */
+
+  main {
+    grid-template-columns: [left] 1fr [content] 90vw 1fr [right];
+  }
+
+  .full-bleed:not(.body-header):not(.body-footer) {
+    padding-left: 5vw;
+    padding-right: 5vw;
+  }
+
+  /* Media module */
+
+  .media {
+    flex-direction: row;
+  }
+
+  .media > img {
+    max-width: 50%;
+  }
+
+  .media > * {
+    flex-basis: 33%;
+    flex-grow: 1;
+  }
+
+  /* Two-Column module */
+
+  .two-column {
+    display: grid;
+    grid-template-columns: [left] 1fr [content] 60vw [sidebar] 30vw [right];
+    gap: 0 2em;
+  }
+
+  .two-column header {
+    grid-column: left / right;
+  }
+
+  .two-column__contents {
+    grid-column: content;
+  }
+
+  .two-column__sidebar {
+    grid-column: sidebar;
+    padding: 2em 3em 2em 2em;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: none;
+    align-self: start;
+  }
+
+  /* List of links */
+
+  .list-of-links {
+    column-count: 2;
+  }
+
+  /* Responsive grid */
+
+  .responsive-grid {
+    grid-template-columns: [left] repeat(2, 1fr) [right];
+  }
+
+  /* Newspaper columns */
+
+  .newspaper-columns {
+    column-count: 2;
+    column-gap: 5vw;
+    text-align: justify;
+  }
+
+  .newspaper-columns p:first-of-type {
+    margin-top: 0;
+  }
+
+  .newspaper-columns ul {
+    margin: 0;
+  }
+
+  .newspaper-columns > ul > li {
+    break-inside: avoid;
+    margin: 1em 0;
+  }
+
+  .newspaper-columns .span-all {
+    column-span: all;
+  }
+
+  /* Short modules */
+
+  .flex-wrap {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  /* Home page */
+
+  .furever-pets .flex-wrap {
+    gap: 1.5em;
+  }
+
+  /* Process page */
+
+  .wireframes {
+    align-items: flex-start;
+  }
+}
+
+@media (min-width: 64em) {
+  /* Basic styles */
+
+  main {
+    grid-template-columns: [left] 1fr [content] 80vw 1fr [right];
+  }
+
+  .full-bleed:not(.body-header):not(.body-footer) {
+    padding-left: 10vw;
+    padding-right: 10vw;
+  }
+
+  /* Header */
+
+  .body-header .logo {
+    --logo-size: 3.5em;
+  }
+
+  .heading {
+    font-size: 1.3rem;
+  }
+
+  .heading p {
+    display: initial;
+  }
+
+  /* Dropdown-Menu */
+
+  .dropdown-menu__hamburger {
+    display: none;
+  }
+
+  .dropdown-menu__menu {
+    opacity: 1;
+    visibility: visible;
+    position: initial;
+
+    display: flex;
+    justify-content: center;
+  }
+
+  .dropdown-menu__menu > li > a {
+    font-size: 1em;
+    padding: 0.5em 0.75em;
+
+    /* CSS Validator does not like relative colors, but they work properly */
+    background-color: hsl(from var(--light-green) h s l / 0.8);
+
+    background-blend-mode: luminosity;
+  }
+
+  .dropdown-menu__menu > li:first-of-type > a {
+    /* Override mobile style */
+    border-top-right-radius: 0;
+
+    border-top-left-radius: 0.5em;
+    border-bottom-left-radius: 0.5em;
+  }
+
+  .dropdown-menu__menu > li:last-of-type > a {
+    /* Override mobile style */
+    border-bottom-left-radius: 0;
+
+    border-top-right-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+  }
+
+  .dropdown-menu__menu > li > a:hover {
+    /* CSS Validator does not like relative colors, but they work properly */
+    background-color: hsl(from var(--forest-green) h s l / 0.8);
+  }
+
+  .dropdown-menu__menu > li > a:active {
+    /* CSS Validator does not like relative colors, but they work properly */
+    background-color: hsl(from var(--brown) h s l / 0.8);
+  }
+
+  /* Footer */
+  .body-footer .logo {
+    --logo-size: 6em;
+  }
+
+  .body-footer .header {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .body-footer .header .dropdown-menu {
+    display: none;
+  }
+
+  .body-footer h3 {
+    text-align: left;
+  }
+
+  /* Footer link list */
+
+  .desktop-links {
+    display: block;
+  }
+
+  .desktop-links menu {
+    column-count: 2;
+    column-gap: 2em;
+    font-weight: 500;
+
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+
+    line-height: 1.7;
+  }
+
+  /* List of links */
+
+  .list-of-links {
+    column-count: 3;
+  }
+
+  /* Responsive grid */
+
+  .responsive-grid {
+    grid-template-columns: [left] repeat(3, 1fr) [right];
+  }
+}
