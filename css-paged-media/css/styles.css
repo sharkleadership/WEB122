@@ -184,6 +184,7 @@
     text-indent: 10rem;
 
     display: block;
+    height: 2.25rem;
     width: 2.25rem;
     aspect-ratio: 1;
     padding: 0.5rem;
@@ -371,6 +372,7 @@
 
     display: block;
     opacity: 0;
+    height: 2rem;
     width: 2rem;
     aspect-ratio: 1;
     padding: 1rem;
