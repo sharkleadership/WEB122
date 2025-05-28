@@ -181,7 +181,8 @@
     right: 0;
     z-index: 100;
 
-    text-indent: 10rem;
+    /* text-indent: 10rem; */
+    color: transparent;
 
     display: block;
     height: 2.25rem;
@@ -367,7 +368,8 @@
     right: 2em;
     z-index: 100;
 
-    text-indent: 5rem;
+    /* text-indent: 5rem; */
+    color: transparent;
     font-size: 1rem;
 
     display: block;
