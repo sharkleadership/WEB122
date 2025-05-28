@@ -187,7 +187,7 @@
     display: block;
     height: 2.25rem;
     width: 2.25rem;
-    aspect-ratio: 1;
+    aspect-ratio: 1 / 1;
     padding: 0.5rem;
     background-color: hsl(35, 25%, 60%);
     box-shadow: 0 0 0 0.1rem hsl(35, 61%, 65%);
@@ -195,7 +195,7 @@
     border-radius: 0.25rem;
 
     background-position: 0 50%;
-    background-size: cover;
+    background-size: 200%;
     background-repeat: no-repeat;
     background-image: url("../assets/hamburger-sprite.svg");
     background-blend-mode: luminosity;
@@ -376,13 +376,13 @@
     opacity: 0;
     height: 2rem;
     width: 2rem;
-    aspect-ratio: 1;
+    aspect-ratio: 1 / 1;
     padding: 1rem;
     background-color: hsl(35, 25%, 60%);
     box-shadow: 0 0 0 0.1rem hsl(35, 61%, 65%);
     border-radius: 0.25rem;
 
-    background-position: 50% 50%;
+    background-position: center;
     background-size: 75%;
     background-repeat: no-repeat;
     background-image: url("../assets/arrow_upward.svg");
